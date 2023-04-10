@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Midprompt</title>
+  <link rel="stylesheet" href="style/popup.css">
+</head>
+<body>
+  <h1>Midprompt</h1>
+
+  <section id="categories">
+    <!-- Categories populate here -->
+  </section>
+
+  <button id="add-category">Add Category</button>
+  <div id="category-modal" class="modal" style="display:none">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <form id="category-form">
+        <label for="category-name">Category Name:</label>
+        <input type="text" id="category-name" name="category-name" required>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  </div>
+
+  <section id="snippet-list">
+    <!-- Snippets populate here -->
+  </section>
+
+  <script src="../scripts/common.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

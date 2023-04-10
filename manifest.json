@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Midprompt",
+  "version": "1.0",
+  "description": "Save, modify, and keep track of Midjourney prompts in Discord.",
+  "permissions": [ "contextMenus", "storage", "clipboardWrite", "clipboardRead", "tabs", "activeTab"],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": "imgs/icon.png"
+  },
+  "icons": {
+    "16": "imgs/icon.png",
+    "48": "imgs/icon.png",
+    "128": "imgs/icon.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.discord.com/*"],
+      "js": ["scripts/contentScript.js"]
+    }
+  ]
+}

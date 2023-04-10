@@ -1,0 +1,32 @@
+/** style sheet for the popup.html page **/
+
+body {
+  font-family: Arial, sans-serif;
+  width: 300px;
+  height: 400px;
+}
+#snippet-list {
+  list-style-type: none;
+  padding: 0;
+  height: 300px; /* Set a height for the list */
+  overflow-y: auto; /* Add a scrollbar if the content exceeds the height */
+}
+
+#snippet-list div {
+  padding: 5px;
+  border: 1px solid #ccc;
+  background-color: #f3f3f3;
+  margin: 5px;
+  min-height: 22px;
+  cursor: pointer;
+}
+#snippet-list div:hover {
+  border: 1px solid #8bddfd;
+  background-color: #e3f7ff;
+}
+.delete-button {
+  float: right;
+  top: -10;
+  color: #8a455f;
+  cursor: pointer;
+}
