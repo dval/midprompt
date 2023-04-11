@@ -23,7 +23,7 @@ function readClipboard() {
   .then((text) => {
     console.log("pasteText: " + text);
     // auto-paste the text into the Discord chat input
-    //pasteTextIntoDiscord(text);
+    // pasteTextIntoDiscord(text);
     window.removeEventListener('focus', readClipboard);
   })
   .catch((err) => {

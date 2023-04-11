@@ -7,7 +7,7 @@
 
 importScripts('scripts/common.js');
 
-
+// Clear all context menu items
 function clearContextMenuItems() {
   return new Promise((resolve) => {
     chrome.contextMenus.removeAll(() => {
@@ -17,16 +17,10 @@ function clearContextMenuItems() {
   });
 }
 
-
+// Update the context menu items when the categories are updated
 async function updateCategoryContextMenu() {
   // Clear all existing category context menu items under 'save-selected-text' parentId
   await clearContextMenuItems();
-
-  // Clear all existing category context menu items under 'save-selected-text' parentId
-  // chrome.contextMenus.removeAll(() => {
-  //   console.log("Cleared all existing category context menu items");
-  // });
-  
 
   // Recreate the parent context menu item
   chrome.contextMenus.create({
@@ -52,7 +46,6 @@ async function updateCategoryContextMenu() {
     }
   });
 }
-
 
 // initialize setup when the extension is installed
 chrome.runtime.onInstalled.addListener(async () => {
@@ -84,3 +77,4 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     updateCategoryContextMenu();
   }
 });
+
