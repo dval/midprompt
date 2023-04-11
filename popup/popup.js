@@ -22,7 +22,7 @@ function template(strings, ...keys) {
 async function populateCategories() {
   const categories = await getAllCategories();
 
-  const categoryList = document.getElementById('categories');
+  const categoryList = document.getElementById('category-list');
   categoryList.innerHTML = '';
 
   categories.forEach((category) => {
@@ -31,29 +31,32 @@ async function populateCategories() {
     listItem.textContent = category.name;
 
     listItem.addEventListener('click', async (event) => {
-      if (!event.target.closest('button')) {
+      if (!event.target.closest('div.delete-button, div.edit-button')) {
         populateSnippetList(category.id);
       }
     });
 
     if (category.name !== 'Uncategorized') {
-      const editButton = document.createElement('button');
-      editButton.textContent = 'Edit';
-      editButton.addEventListener('click', () => {
-        openCategoryModal(category);
-      });
-      listItem.appendChild(editButton);
-
-      const deleteButton = document.createElement('button');
-      deleteButton.textContent = 'Delete';
-      deleteButton.addEventListener('click', async () => {
+      let snippitDeleteButton = document.createElement('div');
+      snippitDeleteButton.className = 'delete-button material-symbols-outlined';
+      snippitDeleteButton.textContent = 'delete';
+      snippitDeleteButton.addEventListener('click', async () => {
         await deleteCategory(category.id);
         populateCategories();
 
         // Notify the background script to update the context menu items
         chrome.runtime.sendMessage({ action: 'updateCategoryContextMenu' });
       });
-      listItem.appendChild(deleteButton);
+      listItem.appendChild(snippitDeleteButton);
+      
+      const editButton = document.createElement('div');
+      editButton.className = 'edit-button material-symbols-outlined';
+      editButton.textContent = 'edit';
+      editButton.addEventListener('click', () => {
+        openCategoryModal(category);
+      });
+      listItem.appendChild(editButton);
+
     }
 
     categoryList.appendChild(listItem);
@@ -66,7 +69,7 @@ async function populateSnippetList(categoryId) {
   const snippets = await getSnippetsByCategory(categoryId);
 
   snippetList.innerHTML = '';
-  snippetList.appendChild(createBackButton());
+  //snippetList.appendChild(createBackButton());
 
   // Create a list item for each snippet and add it to the list
   snippets.forEach((snippet) => {
@@ -74,22 +77,23 @@ async function populateSnippetList(categoryId) {
     const listItem = document.createElement('div');
     listItem.setAttribute('value', snippet.text);
     const snippetText = document.createTextNode(snippet.text);
-    const deleteButton = document.createElement('button');
-    deleteButton.className = 'delete-button';
-    deleteButton.textContent = 'x';
+    let deleteButton = document.createElement('div');
+    deleteButton.className = 'delete-button material-symbols-outlined';
+    deleteButton.textContent = 'delete';
     deleteButton.addEventListener('click', async () => {
-  await deleteCategory(categoryId);
-  populateCategories();
+      await deleteSnippet(snippet.id);
+      
+      populateCategories();
 
-  // Notify the background script to update the context menu items
-  chrome.runtime.sendMessage({ action: 'updateCategoryContextMenu' });
+      // Notify the background script to update the context menu items
+      chrome.runtime.sendMessage({ action: 'updateCategoryContextMenu' });
 
-  // Refresh the snippet list if the deleted category is currently displayed
-  const snippetList = document.getElementById('snippet-list');
-  if (snippetList.style.display === 'block') {
-    populateSnippetList(null);
-  }
-});
+      // Refresh the snippet list if the deleted category is currently displayed
+      const snippetContainer = document.getElementById('snippet-container');
+      if (snippetList.style.display === 'block') {
+        populateSnippetList(categoryId);
+      }
+    });
 
 
     // Build UI
@@ -117,28 +121,18 @@ async function populateSnippetList(categoryId) {
 
 // display the category list
 function showCategoryList() {
-  const categoryList = document.getElementById('categories');
-  const snippetList = document.getElementById('snippet-list');
+  const categoryList = document.getElementById('category-container');
+  const snippetList = document.getElementById('snippet-container');
   categoryList.style.display = 'block';
   snippetList.style.display = 'none';
 }
 
 // display the snippet list for a category
 function showSnippetList() {
-  const categoryList = document.getElementById('categories');
-  const snippetList = document.getElementById('snippet-list');
+  const categoryList = document.getElementById('category-container');
+  const snippetList = document.getElementById('snippet-container');
   categoryList.style.display = 'none';
   snippetList.style.display = 'block';
-}
-
-// create a button to return to the category list
-function createBackButton() {
-  const backButton = document.createElement('button');
-  backButton.textContent = 'Back';
-  backButton.addEventListener('click', () => {
-    showCategoryList();
-  });
-  return backButton;
 }
 
 function openCategoryModal(category) {
@@ -195,6 +189,11 @@ addCategoryButton.addEventListener('click', () => {
   openCategoryModal(null);
 });
 
+// Add click event listener to the "Back" button
+const backButton = document.getElementById('back-button');
+backButton.addEventListener('click', () => {
+  showCategoryList();
+});
 // Listen for the 'refreshSnippetList' message from background.js
 // update categories and snippets when changes are made
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {

@@ -1,34 +1,58 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>Midprompt</title>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <link rel="stylesheet" href="style/popup.css">
 </head>
+
 <body>
-  <h1>Midprompt</h1>
+  <header>
+    <h1>Midprompt</h1>
+  </header>
 
-  <section id="categories">
-    <!-- Categories populate here -->
-  </section>
+  <main>
 
-  <button id="add-category">Add Category</button>
-  <div id="category-modal" class="modal" style="display:none">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <form id="category-form">
-        <label for="category-name">Category Name:</label>
-        <input type="text" id="category-name" name="category-name" required>
-        <input type="submit" value="Submit">
-      </form>
-    </div>
-  </div>
+    <section id="category-container">
+      <h2>Categories</h2>
+      <div id="add-category" class="material-symbols-outlined">add</div>
+      
+      <div id="category-list">
+        <!-- Categories populate here -->
+      </div>
 
-  <section id="snippet-list">
-    <!-- Snippets populate here -->
-  </section>
+      <div id="category-modal" class="modal" style="display:none">
+        <div class="modal-content">
+          <form id="category-form">
+            <input type="text" id="category-name" name="category-name" placeholder="Category" required>
+            <!-- input type="submit" value="Submit" -->
+          </form>
+          <span class="material-symbols-outlined close">close</span>
+        </div>
+      </div>
+
+    </section>
+
+    <section id="snippet-container">
+      <h2>Snippets</h2>
+      <div id="back-button" class="material-symbols-outlined">arrow_back</div>
+
+      <div id="snippet-list">
+        <!-- Snippets populate here -->
+      </div>
+
+    </section>
+
+
+  </main>
+
+  <footer>
+  </footer>
 
   <script src="../scripts/common.js"></script>
   <script src="popup.js"></script>
 </body>
+
 </html>
