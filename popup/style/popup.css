@@ -1,5 +1,4 @@
-/** style sheet for the popup.html page **/
-html{
+html {
   width: 400px;
   height: 600px;
   background-color: #182526;
@@ -8,32 +7,34 @@ html{
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   margin: 0;
   padding: 0;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 0.84em;
-  background-color: none;
-  box-sizing: border-box;
 }
-h2, h3, h4, h5, h6 {
-  width: 100%;
-  background-color: #1e3040;
-  font-weight: normal;
-  margin: 2px 0;
-}
+
 h1, h2, h3, h4, h5, h6 {
   padding: 8px 12px;
   margin: 0;
 }
-section>h2{
+
+h2, h3, h4, h5, h6 {
+  width: 100%;
+  background-color: #1e3040;
+  font-weight: normal;
+}
+
+section > h2 {
   padding-left: 42px;
 }
-#snippet-container, #category-container {
+
+#snippet-container, #category-container,
+#snippet-list, #category-list {
   width: 100%;
-  height: 100%;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -41,22 +42,24 @@ section>h2{
 
 #snippet-list, #category-list {
   list-style-type: none;
-  padding: 0;
   margin-top: 1px;
-  overflow-y: auto; /* Add a scrollbar if the content exceeds the height */
+  overflow-y: auto;
 }
 
-#snippet-list>div, #category-list>div {
+#snippet-list > div, #category-list > div {
   padding: 8px;
   border: 1px solid #182526;
   background-color: #1e3040;
-  margin: 0px;
   min-height: 22px;
   cursor: pointer;
 }
 
 #snippet-list div:hover, #category-list div:hover {
   border: 1px solid #59583f;
+  color: #fff;
+}
+
+#add-category:hover, #back-button:hover {
   color: #fff;
 }
 
@@ -68,23 +71,17 @@ section>h2{
   padding: 2px;
   margin: 6px auto;
   min-height: 22px;
-  cursor: pointer;
+}
+
+.delete-button, .edit-button, #add-category, #back-button {
+  color: #8a8c81;
   background-color: #1e3040;
   border: 1px solid #1e3040;
-  color: #8a8c81;
-}
-#add-category:hover, #back-button:hover {
-  color: #fff;
+  cursor: pointer;
 }
 
 .delete-button, .edit-button {
   float: right;
   margin: 0 auto;
   padding: 0;
-  color: #8a8c81;
-  background-color: #1e3040;
-  border: 1px solid #1e3040;
-  cursor: pointer;
 }
-
-
