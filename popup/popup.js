@@ -4,6 +4,7 @@
  * @author Dylan Valentine
  * @version 1.0.0
  */
+importScripts('../scripts/common.js');
 
 // parse template and return the populated string
 function template(strings, ...keys) {
