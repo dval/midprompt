@@ -31,7 +31,22 @@ h2, h3, h4, h5, h6 {
 section > h2 {
   padding-left: 42px;
 }
-
+footer > h2 {
+  padding: 4px 12px;
+  margin: 0 auto;
+  width: 100%;
+  background-color: #1e3040;
+  font-size: 0.8em;
+  color: #8a8c81;
+}
+footer > div {
+  padding: 4px 12px;
+  margin: 0 auto;
+  width: 100%;
+  background-color: #182526;
+  font-size: 0.8em;
+  color: #8a8c81;
+}
 #snippet-container, #category-container,
 #snippet-list, #category-list {
   width: 100%;

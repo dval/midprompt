@@ -89,7 +89,7 @@ async function populateSnippetList(categoryId) {
       chrome.runtime.sendMessage({ action: 'updateCategoryContextMenu' });
 
       // Refresh the snippet list if the deleted category is currently displayed
-      const snippetContainer = document.getElementById('snippet-container');
+      //const snippetContainer = document.getElementById('snippet-container');
       if (snippetList.style.display === 'block') {
         populateSnippetList(categoryId);
       }
@@ -100,18 +100,24 @@ async function populateSnippetList(categoryId) {
     listItem.appendChild(snippetText);
     listItem.appendChild(deleteButton);
 
-    // Add an event listener to the list item to copy the snippet text to the clipboard and close the window
-    listItem.addEventListener('click', async (event) => {
-      if (event.target !== deleteButton) {
-        await navigator.clipboard.writeText(listItem.getAttribute('value')).then(
-          // Send a message to contentScript.js to paste the text
-          chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            chrome.tabs.sendMessage(tabs[0].id, { action: 'pasteText' });
-          })
-        );
-        window.close();
-      }
-    });
+// Add an event listener to the list item to copy the snippet text to the clipboard
+listItem.addEventListener('click', async (event) => {
+  const textToCopy = listItem.getAttribute('value');
+  const currentString = document.getElementById('current-prompt');
+  var content = document.createTextNode(textToCopy);
+
+  if (event.ctrlKey) {
+    // Read the current clipboard text
+    currentString.append(content);
+    // Write the updated text back to the clipboard
+    await navigator.clipboard.writeText(currentString.innerHTML);
+  } else {
+    currentString.innerHTML = content.textContent;
+    // Overwrite the current clipboard text with the new text
+    await navigator.clipboard.writeText(currentString.innerHTML);
+  }
+});
+
 
     // Add the list item to the list
     snippetList.appendChild(listItem);
