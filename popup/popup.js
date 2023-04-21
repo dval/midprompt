@@ -62,7 +62,7 @@ async function openMoveOptions(snippetId, currentCategory) {
   // Add a click event listener to close the move options list if clicked outside
   modalBackground.addEventListener("click", (event) => {
     if (!event.target.closest(".move-options, .move-button")) {
-        modalBackground.style.display = "none";
+      modalBackground.style.display = "none";
       // if (document.body.contains(moveOptionsModal)) {
       //   document.body.removeChild(moveOptionsModal);
       // }
@@ -129,7 +129,7 @@ async function populateSnippetList(category) {
   //snippetList.appendChild(createBackButton());
 
   // Set the title of the snippet list
-  if(snippetTitle) {
+  if (snippetTitle) {
     snippetTitle.firstElementChild.innerHTML = category.name;
   }
 
@@ -182,7 +182,7 @@ async function populateSnippetList(category) {
         var content = document.createTextNode(textToCopy);
 
         if (event.ctrlKey) {
-          if(spaceSnippets.checked) {
+          if (spaceSnippets.checked) {
             currentString.append(' ');
           }
           // Read the current clipboard text
@@ -336,3 +336,10 @@ function openSnippetModal(category) {
     addSnippetButton.style.display = 'block';
   };
 }
+
+window.addEventListener('click',function(e){
+  e.preventDefault();
+  if(e.target.href!==undefined){
+    chrome.tabs.create({url:e.target.href})
+  }
+})
