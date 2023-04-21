@@ -80,15 +80,15 @@ async function moveSnippet(snippetId, newCategoryId) {
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(['snippets'], 'readwrite');
     const snippetStore = transaction.objectStore('snippets');
-    
+
     // Get the snippet by its ID
     const getRequest = snippetStore.get(snippetId);
     getRequest.onsuccess = () => {
       const snippet = getRequest.result;
-      
+
       // Update the category ID of the snippet
       snippet.categoryId = newCategoryId;
-      
+
       // Update the snippet in the object store
       const updateRequest = snippetStore.put(snippet);
       updateRequest.onsuccess = () => {
@@ -171,9 +171,9 @@ async function deleteCategory(id) {
           snippetStore.put(updatedSnippet);
           cursor.continue();
         }
-      } 
-        // All snippets have been updated; delete the category
-        categoryStore.delete(id);
+      }
+      // All snippets have been updated; delete the category
+      categoryStore.delete(id);
     };
   } else {
     // No snippets to update; delete the category
@@ -183,7 +183,7 @@ async function deleteCategory(id) {
   transaction.onerror = (event) => {
     console.error(event.target.error);
   };
-  
+
 }
 
 // Function to get the 'Uncategorized' category ID
@@ -208,12 +208,36 @@ async function getUncategorizedCategoryId() {
   });
 }
 
-// Function to initialize categories when the extension is first installed
 async function initializeCategories() {
+  const start = [
+    { "name": "Aspcect Ratio", "items": ["--ar 16:9", "--ar 16:10", "--ar 3:2", "--ar 2:3"] },
+    { "name": "Chaos", "items": ["--c 5", "--c 20", "--c 35", "--c 50", "--c 65", "--c 80", "--c 95"] },
+    { "name": "Stylize", "items": ["--s 150", "--s 300", "--s 450", "--s 600", "--s 750", "--s 900"] }
+  ];
   const categories = await getAllCategories();
   const uncategorizedExists = categories.some((category) => category.name === 'Uncategorized');
   if (!uncategorizedExists) {
     await addCategory('Uncategorized');
+    let updatedCategories = await getAllCategories();
+    const uncategorized = updatedCategories.find((category) => category.name === 'Uncategorized');
+    for (const category of start) {
+      const existingCategory = updatedCategories.find((c) => c.name === category.name);
+      let categoryId;
+      if (existingCategory) {
+        categoryId = existingCategory.id;
+      } else {
+        await addCategory(category.name);
+        updatedCategories = await getAllCategories();
+        const newCategory = updatedCategories.find((c) => c.name === category.name);
+        categoryId = newCategory.id;
+      }
+      for (const item of category.items) {
+        await addSnippet(item, categoryId);
+        console.log(`Added ${item}, to ${category.name}.`);
+      }
+    }
   }
 }
+
+
 
