@@ -6,12 +6,12 @@
   "permissions": [ "contextMenus", "scripting", "storage", "clipboardWrite", "clipboardRead", "tabs", "activeTab"],
   "action": {
     "default_popup": "popup/popup.html",
-    "default_icon": "imgs/icon.png"
+    "default_icon": "imgs/icon-128.png"
   },
   "icons": {
-    "16": "imgs/icon.png",
-    "48": "imgs/icon.png",
-    "128": "imgs/icon.png"
+    "16": "imgs/icon-16.png",
+    "48": "imgs/icon-48.png",
+    "128": "imgs/icon-128.png"
   },
   "background": {
     "service_worker": "background.js"
