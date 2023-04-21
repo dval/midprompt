@@ -11,49 +11,59 @@
 <body>
   <header>
     <h1>Midprompt</h1>
+    <a herf="#github-readme" class="material-symbols-outlined">info</a>
   </header>
-
   <main>
-
     <section id="category-container">
       <h2>Categories</h2>
       <div id="add-category" class="material-symbols-outlined">add</div>
-      
       <div id="category-list">
         <!-- Categories populate here -->
       </div>
-
+      <!-- Add new category form -->
       <div id="category-modal" class="modal" style="display:none">
         <div class="modal-content">
           <form id="category-form">
             <input type="text" id="category-name" name="category-name" placeholder="Category" required>
           </form>
-          <span class="material-symbols-outlined close">close</span>
+          <span class="material-symbols-outlined new-category-close">close</span>
+          <span class="material-symbols-outlined new-category-submit">check</span>
         </div>
       </div>
-
     </section>
-
     <section id="snippet-container">
       <h2>Snippets</h2>
       <div id="back-button" class="material-symbols-outlined">arrow_back</div>
-
       <div id="snippet-list">
         <!-- Snippets populate here -->
       </div>
-
+      <!-- Add a new snippet -->
+      <div id="add-snippet" class="material-symbols-outlined">add</div>
+      <div id="snippet-modal" class="modal" style="display:none">
+        <div class="modal-content">
+          <form id="snippet-form">
+            <input type="text" id="snippet-text" name="snippet-text" placeholder="Snippet" required>
+          </form>
+          <span class="material-symbols-outlined new-snippet-close">close</span>
+          <span class="material-symbols-outlined new-snippet-submit">check</span>
+        </div>
+      </div>
     </section>
-
-
   </main>
-
   <footer>
-    <h2>Current Item</h2>
+    <h2>Current Prompt Build<label>Add Space<input type="checkbox" id="space-snippets" name="space-snippets" checked></input></label></h2>
     <div id="current-prompt">
       <!-- Current prompt populates here -->
     </div>
   </footer>
-
+  <div id="modal-background" style="display:none">
+    <div id="modal-content">
+      <h3>Select a category to move to</h3>
+      <div id="move-category-list">
+        <!-- Categories populate here -->
+      </div>
+    </div>
+  </div>
   <script src="../scripts/common.js"></script>
   <script src="popup.js"></script>
 </body>

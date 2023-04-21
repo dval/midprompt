@@ -5,98 +5,282 @@ html {
   color: #eeeeee;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 body {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   margin: 0;
   padding: 0;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 0.84em;
 }
-
+header{
+  width: 100%;
+  height: 48px;
+  background-color: #182526;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  vertical-align: bottom;
+  text-shadow: 0 0 24px #00aeff;
+  color: #b9f7ff;
+  font-weight: normal;
+}
+header > a {
+  padding: 12px;
+  margin: auto 0;
+  text-decoration: none;
+  font-size: 1.2em;
+  cursor: pointer;
+}
 h1, h2, h3, h4, h5, h6 {
-  padding: 8px 12px;
+  padding: 8px;
   margin: 0;
 }
 
 h2, h3, h4, h5, h6 {
-  width: 100%;
   background-color: #1e3040;
   font-weight: normal;
 }
 
-section > h2 {
-  padding-left: 42px;
+footer {
+  display: block;
+  position: absolute;
+  bottom: 3px;
+  left: 3px;
+  margin: 0 auto;
+  height: 78px;
+  box-sizing: border-box;
+  width: calc(100vw - 6px);
 }
 footer > h2 {
   padding: 4px 12px;
-  margin: 0 auto;
-  width: 100%;
-  background-color: #1e3040;
+  margin: 0;
   font-size: 0.8em;
-  color: #8a8c81;
+  width: calc(100% - 24px);
+}
+footer > h2 label {
+  text-align: right;
+  display: inline-block;
+  justify-content: right;
+  width: calc(100% - 101px);
 }
 footer > div {
   padding: 4px 12px;
   margin: 0 auto;
-  width: 100%;
-  background-color: #182526;
-  font-size: 0.8em;
-  color: #8a8c81;
+  background-color: #8a8c81;
+  border: 1px solid #59583f;
+  font-size: 1em;
+  min-height: 42px;
+  border-radius: 0 0 5px 5px;
+}
+main {
+  display: block;
+  width: 100vw;
+  height: calc(100vh - 168px);
+
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  padding: 0 2px;
+}
+::-webkit-scrollbar-track {
+  background:  #182526;
+  padding: 0 2px;
+  cursor: pointer;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #59583f;
+  box-shadow: 0 0 3px black;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  border: 1px solid #f5aaff;
+  box-shadow: 0 0 3px 1px inset #e100ff;
+  border-radius: 10px;
 }
 #snippet-container, #category-container,
 #snippet-list, #category-list {
   width: 100%;
-  margin: 0;
+  margin: auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+#snippet-container, #category-container {
+  width: 100%;
+  margin: auto;
   padding: 0;
   box-sizing: border-box;
 }
 
-#snippet-list, #category-list {
+#snippet-container > h2 {
+  padding-left: 38px;
+}
+
+#category-list {
+  display: block;
   list-style-type: none;
   margin-top: 1px;
   overflow-y: auto;
+  height: calc(100vh - 212px);
 }
 
-#snippet-list > div, #category-list > div {
+#snippet-list {
+  display: block;
+  list-style-type: none;
+  margin-top: 1px;
+  overflow-y: auto;
+  height: calc(100vh - 212px);
+}
+
+#category-list > div, #snippet-list > div {
   padding: 8px;
-  border: 1px solid #182526;
-  background-color: #1e3040;
   min-height: 22px;
   cursor: pointer;
+  z-index: 1;
+  border-radius: 5px;
 }
 
-#snippet-list div:hover, #category-list div:hover {
-  border: 1px solid #59583f;
+#category-list > div {
+  border: 1px solid #182526;
+  background-color: #1e3040;
+}
+
+#snippet-list > div {
+  border: 1px solid #2c5773;
+  background-color: #52514d;
+}
+#category-modal, #snippet-modal{
+  margin-top: 4px;
+}
+
+#category-form, #snippet-form {
+  width: 100%;
+}
+#category-form > input, #snippet-form > input {
+  width: calc(100% - 94px);
+  padding: 6px;
+  margin: 4px;
+  border: 1px solid #1e3040;
+  background-color: #e2e2e2;
+  color: #353535;
+  box-sizing: border-box;
+  font-size: 1em;
+  border-radius: 5px;
+}
+
+ 
+#add-category, #back-button, #add-snippet,
+.delete-button, .edit-button, .move-button,
+.new-category-submit, .new-category-close,
+.new-snippet-submit, .new-snippet-close {
+  margin: auto;
+  color: #8a8c81;
+  /*background-color: #1e3040;*/
+  background-color: none;
+  border: 1px solid #1e3040;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#move-category-list > ul > li:hover,
+#snippet-list > div:hover, #category-list > div:hover {
+  border: 1px solid #f5aaff;
+  box-shadow: 0 0 6px 1px inset #e100ff;
   color: #fff;
 }
 
-#add-category:hover, #back-button:hover {
+#add-category:hover, #back-button:hover, #add-snippet:hover,
+.delete-button:hover, .edit-button:hover, .move-button:hover,
+.new-category-submit:hover, .new-category-close:hover {
+  border: 1px solid #f5aaff;
+  box-shadow: 0 0 6px 1px inset #e100ff;
   color: #fff;
 }
 
-#add-category, #back-button {
+.new-category-submit, .new-category-close,
+.new-snippet-submit, .new-snippet-close {
+  position: relative;
+  float: right;
+  margin: 0 auto;
+  padding: 6px;
+  top: -38px;
+  right: 0px;
+}
+
+.delete-button, .edit-button, .move-button {
+  float: right;
+  margin: 0 auto;
+  padding: 0;
+}
+
+#modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(153, 153, 153, 0.8);
+  z-index: 100;
+}
+
+#modal-content{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 200px;
+  background-color: #1e3040;
+  border: 1px solid #1e3040;
+  border-radius: 5px;
+  z-index: 101;
+}
+#move-category-list {
+  display: block;
+  height: 160px;
+  overflow-y: auto;
+}
+#move-category-list > ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+#move-category-list > ul > li {
+  padding: 8px;
+  min-height: 22px;
+  cursor: pointer;
+  z-index: 1;
+  border-radius: 5px;
+  border: 1px solid #2c5773;
+  background-color: #52514d;
+}
+
+#add-category{
   position: absolute;
-  top: 48px;
+  float: right;
+  top: 54px;
+  margin-left: calc(100% - 34px);
+  z-index: 10;
+}
+
+#add-snippet {
+  position: relative;
+  float: right;
+  margin: 0 auto;
+  padding: 6px;
+}
+
+#back-button {
+  position: absolute;
+  top: 52px;
   left: 0;
   z-index: 10;
   padding: 2px;
   margin: 6px auto;
   min-height: 22px;
-}
-
-.delete-button, .edit-button, #add-category, #back-button {
-  color: #8a8c81;
-  background-color: #1e3040;
-  border: 1px solid #1e3040;
-  cursor: pointer;
-}
-
-.delete-button, .edit-button {
-  float: right;
-  margin: 0 auto;
-  padding: 0;
 }

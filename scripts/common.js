@@ -69,6 +69,40 @@ async function getSnippetsByCategory(categoryId) {
     };
   });
 }
+// common.js
+
+// Other existing functions and code
+
+// Move a snippet to a new category
+async function moveSnippet(snippetId, newCategoryId) {
+  const db = await openIndexedDB();
+
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction(['snippets'], 'readwrite');
+    const snippetStore = transaction.objectStore('snippets');
+    
+    // Get the snippet by its ID
+    const getRequest = snippetStore.get(snippetId);
+    getRequest.onsuccess = () => {
+      const snippet = getRequest.result;
+      
+      // Update the category ID of the snippet
+      snippet.categoryId = newCategoryId;
+      
+      // Update the snippet in the object store
+      const updateRequest = snippetStore.put(snippet);
+      updateRequest.onsuccess = () => {
+        resolve(updateRequest.result);
+      };
+      updateRequest.onerror = () => {
+        reject(updateRequest.error);
+      };
+    };
+    getRequest.onerror = () => {
+      reject(getRequest.error);
+    };
+  });
+}
 
 async function addCategory(categoryName) {
   const db = await openIndexedDB();
