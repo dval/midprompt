@@ -189,10 +189,22 @@ async function populateSnippetList(category) {
           currentString.append(content);
           // Write the updated text back to the clipboard
           await navigator.clipboard.writeText(currentString.innerHTML);
+          //TODO: remove attempt to write into discord DOM
+          // .then(
+          //   // Send a message to contentScript.js to paste the text
+          //   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+          //     chrome.tabs.sendMessage(tabs[0].id, { action: 'pasteText' });
+          //   })
+          // );
         } else {
           currentString.innerHTML = content.textContent;
           // Overwrite the current clipboard text with the new text
-          await navigator.clipboard.writeText(currentString.innerHTML);
+          await navigator.clipboard.writeText(currentString.innerHTML).then(
+            // Send a message to contentScript.js to paste the text
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+              chrome.tabs.sendMessage(tabs[0].id, { action: 'pasteText' });
+            })
+          );
         }
       }
     });
